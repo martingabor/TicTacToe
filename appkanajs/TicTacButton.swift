@@ -14,13 +14,14 @@ class TicTacButton: UIButton {
     var y = -1
     var playerValue = -100
     
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    func reset(){
+        self.x = -1
+        self.y = -1
+        self.playerValue = -100
+        self.setBackgroundImage(nil, for: .normal)
+        self.isUserInteractionEnabled = true
+        self.backgroundColor = .white
     }
-    */
 
     func setIndex(x: Int, y: Int){
         self.x = x

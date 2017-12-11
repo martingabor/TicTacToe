@@ -15,6 +15,12 @@
 		771FFE061FDB30AC00032A6A /* appkanajsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771FFE051FDB30AC00032A6A /* appkanajsTests.swift */; };
 		771FFE111FDB30AC00032A6A /* appkanajsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771FFE101FDB30AC00032A6A /* appkanajsUITests.swift */; };
 		771FFE251FDB5A2900032A6A /* TicTacButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771FFE241FDB5A2900032A6A /* TicTacButton.swift */; };
+		77224BFF1FDE2A4400FE425C /* WinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77224BFE1FDE2A4400FE425C /* WinView.swift */; };
+		77224C011FDE330600FE425C /* TicTacLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77224C001FDE330600FE425C /* TicTacLogic.swift */; };
+		77224C031FDE416E00FE425C /* GameBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77224C021FDE416E00FE425C /* GameBoardView.swift */; };
+		776CD4181FDE543900353481 /* GameBoardViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776CD4171FDE543900353481 /* GameBoardViewProtocol.swift */; };
+		776CD41A1FDE552800353481 /* WinViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776CD4191FDE552800353481 /* WinViewProtocol.swift */; };
+		776CD41C1FDE56CE00353481 /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776CD41B1FDE56CE00353481 /* ScoreView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +55,12 @@
 		771FFE101FDB30AC00032A6A /* appkanajsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appkanajsUITests.swift; sourceTree = "<group>"; };
 		771FFE121FDB30AC00032A6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		771FFE241FDB5A2900032A6A /* TicTacButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicTacButton.swift; sourceTree = "<group>"; };
+		77224BFE1FDE2A4400FE425C /* WinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinView.swift; sourceTree = "<group>"; };
+		77224C001FDE330600FE425C /* TicTacLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicTacLogic.swift; sourceTree = "<group>"; };
+		77224C021FDE416E00FE425C /* GameBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoardView.swift; sourceTree = "<group>"; };
+		776CD4171FDE543900353481 /* GameBoardViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoardViewProtocol.swift; sourceTree = "<group>"; };
+		776CD4191FDE552800353481 /* WinViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinViewProtocol.swift; sourceTree = "<group>"; };
+		776CD41B1FDE56CE00353481 /* ScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +113,12 @@
 			children = (
 				771FFDF01FDB30AB00032A6A /* AppDelegate.swift */,
 				771FFDF21FDB30AB00032A6A /* ViewController.swift */,
+				77224C021FDE416E00FE425C /* GameBoardView.swift */,
+				776CD4171FDE543900353481 /* GameBoardViewProtocol.swift */,
+				776CD41B1FDE56CE00353481 /* ScoreView.swift */,
+				77224BFE1FDE2A4400FE425C /* WinView.swift */,
+				776CD4191FDE552800353481 /* WinViewProtocol.swift */,
+				77224C001FDE330600FE425C /* TicTacLogic.swift */,
 				771FFE241FDB5A2900032A6A /* TicTacButton.swift */,
 				771FFDF41FDB30AB00032A6A /* Main.storyboard */,
 				771FFDF71FDB30AB00032A6A /* Assets.xcassets */,
@@ -196,6 +214,7 @@
 				TargetAttributes = {
 					771FFDEC1FDB30AB00032A6A = {
 						CreatedOnToolsVersion = 9.1;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					771FFE001FDB30AB00032A6A = {
@@ -262,9 +281,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77224C011FDE330600FE425C /* TicTacLogic.swift in Sources */,
 				771FFDF31FDB30AB00032A6A /* ViewController.swift in Sources */,
+				776CD41C1FDE56CE00353481 /* ScoreView.swift in Sources */,
+				776CD4181FDE543900353481 /* GameBoardViewProtocol.swift in Sources */,
+				776CD41A1FDE552800353481 /* WinViewProtocol.swift in Sources */,
 				771FFDF11FDB30AB00032A6A /* AppDelegate.swift in Sources */,
 				771FFE251FDB5A2900032A6A /* TicTacButton.swift in Sources */,
+				77224BFF1FDE2A4400FE425C /* WinView.swift in Sources */,
+				77224C031FDE416E00FE425C /* GameBoardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,12 +455,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C8P882SGSG;
 				INFOPLIST_FILE = appkanajs/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = martinhra.appkanajs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -445,6 +472,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C8P882SGSG;
 				INFOPLIST_FILE = appkanajs/Info.plist;

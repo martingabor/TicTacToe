@@ -30,28 +30,47 @@ import UIKit
     let width = UIScreen.main.bounds.size.width
     let height = UIScreen.main.bounds.size.height
     
+    let offset: Int = Int((UIScreen.main.bounds.size.height - UIScreen.main.bounds.size.width)/1.25)
+    let buttonWidth: Int = Int(UIScreen.main.bounds.size.width/3)
+    
     
     var buttonsArr: Array = Array(repeating: Array(repeating:0 , count: 3), count: 3)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
+      
+
         self.view.backgroundColor = self.getRandomColor()
-        
-        let offset: Int = Int((height - width)/2)
-        let buttonWidth: Int = Int(width/3)
         counter = 0
         sign = "Cross.png"
+        
+        
+        let whiteCoverView = UIView(frame: CGRect(x: 0, y: 20, width: Int(width), height: buttonWidth + 45))
+        whiteCoverView.backgroundColor = UIColor.white
+        self.view.addSubview(whiteCoverView)
+        
+        let crossCounterPicture = UIImage(named: "Cross.png")
+        let crossCounterPictureView = UIImageView(frame: CGRect(x: 2, y: 25, width: buttonWidth - 4, height: buttonWidth - 4))
+        crossCounterPictureView.image = crossCounterPicture
+        whiteCoverView.addSubview(crossCounterPictureView)
+        
+        let circleCounterPicture = UIImage(named: "Circle.png")
+        let circleCounterPictureView = UIImageView(frame: CGRect(x: 2 * buttonWidth + 2, y: 25, width: buttonWidth - 4, height: buttonWidth - 4))
+        circleCounterPictureView.image = circleCounterPicture
+        whiteCoverView.addSubview(circleCounterPictureView)
+        
+        //UICounters initial setup
         if crossCount == 0 && circleCount == 0 {
-            circleCountLabel = UILabel(frame: CGRect(x: 0, y: offset - 50, width: Int(width/2), height: 60))
+            circleCountLabel = UILabel(frame: CGRect(x: 2, y: offset - 50, width: buttonWidth - 4, height: 40))
             circleCountLabel.font = UIFont(name: "Arial Rounded MT Bold", size: 40)
             circleCountLabel.textAlignment = .center
             
-            crossCountLabel = UILabel(frame: CGRect(x: Int(width/2), y: offset - 50, width: Int(width/2), height: 60))
+            crossCountLabel = UILabel(frame: CGRect(x:  2 * buttonWidth + 2, y: offset - 50, width: buttonWidth - 4, height: 40))
             crossCountLabel.font = UIFont(name: "Arial Rounded MT Bold", size: 40)
             crossCountLabel.textAlignment = .center
-
-
+            
+            
             self.view.addSubview(crossCountLabel)
             self.view.addSubview(circleCountLabel)
         }
@@ -61,10 +80,14 @@ import UIKit
         crossCountLabel.text = String(crossCount)
         crossCountLabel.adjustsFontSizeToFitWidth = true
         
-       
+        
         for i in 0..<3 {
             for j in 0..<3{
-                let button: TicTacButton = TicTacButton(frame: CGRect(x: i*buttonWidth+2, y: j*buttonWidth + offset, width: buttonWidth-4, height: buttonWidth-4))
+                let button: TicTacButton =
+                    TicTacButton(frame: CGRect(x: i * buttonWidth + 2,
+                                               y: j * buttonWidth + offset,
+                                               width: buttonWidth - 4,
+                                               height: buttonWidth - 4))
                 
                 //na swipe neskor na 2048 bude treba toto zatial staci tap na piskorky
                 /*let swipeButtonDown: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.buttonDown(sender:)))
@@ -130,8 +153,6 @@ import UIKit
     
     func winInfo(winner:String){
         
-        let offset: Int = Int((height - width)/2)
-        
         if crossCount == 10 || circleCount == 10 {
             crossCount = 0
             circleCount = 0
@@ -161,13 +182,8 @@ import UIKit
         playAgainButton.addTarget(self,
                                   action: #selector(playAgain(_:)), for: .touchUpInside)
         self.view.addSubview(playAgainButton)
-        
-        
-
-        
-        
-        
     }
+   
     
     func didWin() -> Int{
         

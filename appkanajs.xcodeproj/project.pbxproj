@@ -15,7 +15,6 @@
 		771FFE061FDB30AC00032A6A /* appkanajsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771FFE051FDB30AC00032A6A /* appkanajsTests.swift */; };
 		771FFE111FDB30AC00032A6A /* appkanajsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771FFE101FDB30AC00032A6A /* appkanajsUITests.swift */; };
 		771FFE251FDB5A2900032A6A /* TicTacButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771FFE241FDB5A2900032A6A /* TicTacButton.swift */; };
-		77DA92D71FDCA07B00443FE9 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DA92D61FDCA07B00443FE9 /* File.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +49,6 @@
 		771FFE101FDB30AC00032A6A /* appkanajsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appkanajsUITests.swift; sourceTree = "<group>"; };
 		771FFE121FDB30AC00032A6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		771FFE241FDB5A2900032A6A /* TicTacButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicTacButton.swift; sourceTree = "<group>"; };
-		77DA92D61FDCA07B00443FE9 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +101,6 @@
 			children = (
 				771FFDF01FDB30AB00032A6A /* AppDelegate.swift */,
 				771FFDF21FDB30AB00032A6A /* ViewController.swift */,
-				77DA92D61FDCA07B00443FE9 /* File.swift */,
 				771FFE241FDB5A2900032A6A /* TicTacButton.swift */,
 				771FFDF41FDB30AB00032A6A /* Main.storyboard */,
 				771FFDF71FDB30AB00032A6A /* Assets.xcassets */,
@@ -265,7 +262,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77DA92D71FDCA07B00443FE9 /* File.swift in Sources */,
 				771FFDF31FDB30AB00032A6A /* ViewController.swift in Sources */,
 				771FFDF11FDB30AB00032A6A /* AppDelegate.swift in Sources */,
 				771FFE251FDB5A2900032A6A /* TicTacButton.swift in Sources */,

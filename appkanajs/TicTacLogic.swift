@@ -8,7 +8,8 @@
 
 import Foundation
 
-func didWin(buttonsArr: [[TicTacButton]],x: Int, y: Int, sign: Int) -> Bool{
+func didWin(buttonsArr: [[TicTacButton]],x: Int, y: Int, sign: Int, winChainSize: Int) -> Bool{
+    print("START.")
     NSLog("For Button [%d,%d] with sign %d",x , y, sign)
     let col = 1 +
         findWinner(buttonsArr: buttonsArr, x: x, y: y - 1, offset_x: 0, offset_y: -1, sign: sign) +
@@ -27,7 +28,7 @@ func didWin(buttonsArr: [[TicTacButton]],x: Int, y: Int, sign: Int) -> Bool{
         findWinner(buttonsArr: buttonsArr, x: x - 1, y: y + 1, offset_x: -1, offset_y: 1, sign: sign) +
         findWinner(buttonsArr: buttonsArr, x: x + 1, y: y - 1, offset_x: 1, offset_y: -1, sign: sign)
     NSLog("Diag2 = %d\nEND.", diag2)
-    if row >= 3 || col >= 3 || diag1 >= 3 || diag2 >= 3 {
+    if row >= winChainSize || col >= winChainSize || diag1 >= winChainSize || diag2 >= winChainSize {
         return true
     }
     return false

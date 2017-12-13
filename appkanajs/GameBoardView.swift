@@ -18,18 +18,20 @@ class GameBoardView: UIView {
     var crossCount = 0
     var circleCount = 0
     
-    var size = 3
-    
+    private var size: Int = 3
+    private var winChainSize: Int = 3
+    private var counter = 0
     
     var buttons = [[TicTacButton]]()
     
     weak var delegate: GameBoardViewProtocol? = nil
     
     
-    init(frame: CGRect, size: Int) {
+    init(frame: CGRect, size: Int, winChainSize: Int) {
         let buttonWidth: Int = Int(UIScreen.main.bounds.size.width/CGFloat(size))
         
         self.size = size
+        self.winChainSize = winChainSize
         
         super.init(frame: frame)
         for i in 0..<size {
@@ -82,7 +84,11 @@ class GameBoardView: UIView {
         let image = UIImage(named: sign)
         sender.setBackgroundImage(image, for: UIControlState.normal)
         sender.isUserInteractionEnabled = false
-        
+        counter += 1
+        if counter == size*size {
+            self.delegate?.winnerIs(winner: "TIE")
+            counter = 0
+        }
         if sign == "Cross.png"  && sender.playerValue == -100{
             sign = "Circle.png"
             sender.playerValue = 1
@@ -90,10 +96,11 @@ class GameBoardView: UIView {
             sign = "Cross.png"
             sender.playerValue = 0
         }
-        
-        if didWin(buttonsArr: buttons, x: sender.x, y: sender.y, sign: sender.playerValue) {
-            print(String(sender.playerValue) + "win")
+        NSLog("[%d,%d]", sender.x,sender.y)
+        if didWin(buttonsArr: buttons, x: sender.x, y: sender.y, sign: sender.playerValue, winChainSize: winChainSize) {
+            print(String(sender.playerValue) + " win")
             let winner: String!
+            counter = 0
             if sender.playerValue == 1{
                 winner = "X"
             } else {
@@ -102,29 +109,4 @@ class GameBoardView: UIView {
             self.delegate?.winnerIs(winner: winner)
         }
     }
-    
-    /*   switch didWin(buttonsArr: buttons, x: sender.x, y: sender.y, sign: sender.playerValue){
-     case 1: do {
-     print("X win")
-     crossCount += 1
-     if crossCount == 10 {
-     crossCount = 0
-     circleCount = 0
-     }
-     self.delegate?.winnerIs(winner:"X")}
-     case 0: do {
-     print("O win");
-     circleCount += 1
-     if circleCount == 10 {
-     crossCount = 0
-     circleCount = 0
-     }
-     self.delegate?.winnerIs(winner:"O")}
-     case -1 : print("TIE");
-     self.delegate?.winnerIs(winner: "TIE");
-     default: print("este sa hra")
-     
-     }*/
-    
-    
 }

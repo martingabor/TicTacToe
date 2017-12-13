@@ -15,8 +15,6 @@ class TicTacButton: UIButton {
     var playerValue = -100
     
     func reset(){
-        self.x = -1
-        self.y = -1
         self.playerValue = -100
         self.setBackgroundImage(nil, for: .normal)
         self.isUserInteractionEnabled = true

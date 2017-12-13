@@ -13,6 +13,7 @@ import UIKit
     
     @IBOutlet var contentView: UIView!
     private var size: Int = 3
+    private var winChainSize: Int = 3
     
     
     
@@ -20,10 +21,6 @@ import UIKit
     let height = UIScreen.main.bounds.size.height
     let offset: Int = Int((UIScreen.main.bounds.size.height - UIScreen.main.bounds.size.width)/1.25)
     
-    //    let buttonWidth: Int = Int(UIScreen.main.bounds.size.width/3)
-    
-    
-    //     var buttonsArr: Array = Array(repeating: Array(repeating:0 , count: 3), count: 3)
     
     var scoreView: ScoreView = ScoreView()
     var gameBoardView: GameBoardView!
@@ -40,7 +37,7 @@ import UIKit
         self.view.addSubview(scoreView)
         
         //        add gameboard view to view controller
-        gameBoardView = GameBoardView(frame: CGRect(x: 0, y: offset, width: Int(width), height: Int(width)), size: size)
+        gameBoardView = GameBoardView(frame: CGRect(x: 0, y: offset, width: Int(width), height: Int(width)), size: size, winChainSize: winChainSize)
         self.view.addSubview(gameBoardView)
         gameBoardView.delegate = self
         
@@ -61,13 +58,18 @@ import UIKit
         
         return UIColor(red:red, green: green, blue: blue, alpha: 1.0)
     }
+    
     func setSize(size: Int){
         self.size = size
     }
     
+    func setWinChainSize(size: Int){
+        self.winChainSize = size
+    }
+    
     @IBAction func chooseDifferentSize(){
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        
+        gameBoardView.removeFromSuperview()
         let newGame = storyBoard.instantiateViewController(withIdentifier: "GameBoardPickerViewController") as! GameBoardPickerViewController
         self.present(newGame, animated: true, completion: nil)
     }

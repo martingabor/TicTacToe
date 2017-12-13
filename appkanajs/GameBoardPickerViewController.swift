@@ -93,9 +93,10 @@ class GameBoardPickerViewController: UIViewController, UIPickerViewDataSource, U
     //MARK: Actions
     
     @IBAction func sizePicked(sender: UIButton){
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        self.removeFromParentViewController()
         
-        let newGame = storyBoard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+        let newGame = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController") as! ViewController
+        
         
         newGame.setSize(size: pickerData[self.gameBoardSizePickerView.selectedRow(inComponent:0)])
         newGame.setWinChainSize(size: pickerData[self.gameBoardSizePickerView.selectedRow(inComponent: 1)])

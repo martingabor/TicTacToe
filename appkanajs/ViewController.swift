@@ -22,7 +22,7 @@ import UIKit
     let offset: Int = Int((UIScreen.main.bounds.size.height - UIScreen.main.bounds.size.width)/1.25)
     
     
-    var scoreView: ScoreView = ScoreView()
+    var scoreView: ScoreView!
     var gameBoardView: GameBoardView!
     var winView: WinView?
     
@@ -31,7 +31,7 @@ import UIKit
         self.view.backgroundColor = self.getRandomColor() // random color for background
         
         //        add score view to view controller
-        scoreView = ScoreView(frame: CGRect(x: 0, y: 20, width: Int(width), height: offset))
+        scoreView = ScoreView(frame: CGRect(x: 0, y: 20, width: Int(width), height: offset), winChainSize: String(self.winChainSize))
         scoreView.updateSingPictureBorderColors(color: self.view.backgroundColor!)
         scoreView.delegate = self
         self.view.addSubview(scoreView)
@@ -68,13 +68,14 @@ import UIKit
     }
     
     @IBAction func chooseDifferentSize(){
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        gameBoardView.removeFromSuperview()
-        let newGame = storyBoard.instantiateViewController(withIdentifier: "GameBoardPickerViewController") as! GameBoardPickerViewController
+        self.removeFromParentViewController()
+        let newGame = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "GameBoardPickerViewController") as! GameBoardPickerViewController
+        
         self.present(newGame, animated: true, completion: nil)
     }
 }
 extension ViewController: GameBoardViewProtocol {
+    
     func winnerIs(winner: String) {
         //        create win view and update score
         winView = WinView(frame: CGRect(x: 0, y: offset, width: Int(width), height: Int(width)), winner: winner)

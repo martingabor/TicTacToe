@@ -12,6 +12,7 @@ class ScoreView: UIView {
     
     @IBOutlet var circleCountLabel: UILabel!
     @IBOutlet var crossCountLabel: UILabel!
+    @IBOutlet var winChainSizeLabel: UILabel!
     
     @IBOutlet var crossCounterPictureView: TicTacImageView!
     @IBOutlet var circleCounterPictureView: TicTacImageView!
@@ -21,9 +22,10 @@ class ScoreView: UIView {
     let buttonWidth: Int = Int(UIScreen.main.bounds.size.width/3)
     
     weak var delegate: WinViewProtocol? = nil
+    weak var delegate2: GameBoardViewProtocol? = nil
     
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, winChainSize: String) {
         super.init(frame: frame)
         
         
@@ -69,6 +71,13 @@ class ScoreView: UIView {
         //        add both to the screen
         self.addSubview(crossCountLabel)
         self.addSubview(circleCountLabel)
+        
+        winChainSizeLabel = UILabel(frame: CGRect(x: buttonWidth + 2, y: offset - 70, width: buttonWidth - 4, height: 40))
+        winChainSizeLabel.text = "Win Chain Size: " + winChainSize
+        winChainSizeLabel.font = UIFont(name: "Arial Rounded MT Bold", size: 16)
+        winChainSizeLabel.lineBreakMode = .byWordWrapping
+        winChainSizeLabel.numberOfLines = 0
+        self.addSubview(winChainSizeLabel)
         
         let resetButton = UIButton(frame: CGRect(x: buttonWidth + 2, y: 55, width: buttonWidth - 4, height: buttonWidth - 54))
         resetButton.addTarget(self, action: #selector(ScoreView.resetCounters(sender:)), for: .touchUpInside)

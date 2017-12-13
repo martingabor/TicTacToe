@@ -9,5 +9,7 @@
 import UIKit
 
 protocol GameBoardViewProtocol: NSObjectProtocol {
-    func winnerIs(winner: String, crossCount: Int, circleCount: Int)
+    // func that displays winScreen for winner
+    func winnerIs(winner: String)
+    func nextPlayer()
 }

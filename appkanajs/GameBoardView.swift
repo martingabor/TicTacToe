@@ -11,31 +11,30 @@ import UIKit
 
 class GameBoardView: UIView {
     
-    let width = UIScreen.main.bounds.size.width
-    let height = UIScreen.main.bounds.size.height
     
-    let offset: Int = Int((UIScreen.main.bounds.size.height - UIScreen.main.bounds.size.width)/1.25)
-    let buttonWidth: Int = Int(UIScreen.main.bounds.size.width/3)
     
     var sign = "Cross.png"
-    var counter = 0
     
     var crossCount = 0
     var circleCount = 0
     
+    var size = 3
+        
     
-    
-    var buttonsArr: Array = Array(repeating: Array(repeating: 0 , count: 3), count: 3)
     var buttons = [[TicTacButton]]()
     
     weak var delegate: GameBoardViewProtocol? = nil
     
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, size: Int) {
+        let buttonWidth: Int = Int(UIScreen.main.bounds.size.width/CGFloat(size))
+        
+        self.size = size
+        
         super.init(frame: frame)
-        for i in 0..<3 {
+        for i in 0..<size {
             buttons.append([TicTacButton]())
-            for j in 0..<3{
+            for j in 0..<size{
                 let button: TicTacButton =
                     TicTacButton(frame: CGRect(x: i * buttonWidth + 2,
                                                y: j * buttonWidth,
@@ -51,7 +50,7 @@ class GameBoardView: UIView {
                 button.addTarget(self, action: #selector(GameBoardView.handleTap(sender:)), for: .touchUpInside)
                 
                 buttons[i].append(button)
-
+                
                 
                 
                 self.addSubview(button)
@@ -64,9 +63,21 @@ class GameBoardView: UIView {
         super.init(coder: aDecoder)
     }
     
+    func resetButtons(){
+        for i in 0..<size {
+            for j in 0..<size{
+                buttons[i][j].reset()
+                
+            }
+        }
+    }
+    
     
     //MARK: Actions
     @IBAction func handleTap(sender: TicTacButton){
+        // change highlighted icon 
+        self.delegate?.nextPlayer()
+
         
         let image = UIImage(named: sign)
         sender.setBackgroundImage(image, for: UIControlState.normal)
@@ -74,14 +85,12 @@ class GameBoardView: UIView {
         
         if sign == "Cross.png"  && sender.playerValue == -100{
             sign = "Circle.png"
-//            buttonsArr[sender.x][sender.y] = 1
             sender.playerValue = 1
         } else if sign == "Circle.png" && sender.playerValue == -100{
             sign = "Cross.png"
-//            buttonsArr[sender.x][sender.y] = 0
             sender.playerValue = 0
         }
-        counter += 1
+        
         switch didWin(buttonsArr: buttons){
         case 1: do {
             print("X win")
@@ -90,7 +99,7 @@ class GameBoardView: UIView {
                 crossCount = 0
                 circleCount = 0
             }
-            self.delegate?.winnerIs(winner:"X", crossCount: crossCount, circleCount: circleCount)}
+            self.delegate?.winnerIs(winner:"X")}
         case 0: do {
             print("O win");
             circleCount += 1
@@ -98,20 +107,11 @@ class GameBoardView: UIView {
                 crossCount = 0
                 circleCount = 0
             }
-            self.delegate?.winnerIs(winner:"O",crossCount: crossCount, circleCount: circleCount)}
+            self.delegate?.winnerIs(winner:"O")}
         case -1 : print("TIE");
-        self.delegate?.winnerIs(winner: "TIE",crossCount: crossCount, circleCount: circleCount);
+        self.delegate?.winnerIs(winner: "TIE");
         default: print("este sa hra")
-      
-        }
-    }
-    
-    func resetButtons(){
-        for i in 0..<3 {
-            for j in 0..<3{
-                buttons[i][j].reset()
-
-            }
+            
         }
     }
     

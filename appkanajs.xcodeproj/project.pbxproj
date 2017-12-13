@@ -10,7 +10,6 @@
 		771FFDF11FDB30AB00032A6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771FFDF01FDB30AB00032A6A /* AppDelegate.swift */; };
 		771FFDF31FDB30AB00032A6A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771FFDF21FDB30AB00032A6A /* ViewController.swift */; };
 		771FFDF61FDB30AB00032A6A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 771FFDF41FDB30AB00032A6A /* Main.storyboard */; };
-		771FFDF81FDB30AB00032A6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 771FFDF71FDB30AB00032A6A /* Assets.xcassets */; };
 		771FFDFB1FDB30AB00032A6A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 771FFDF91FDB30AB00032A6A /* LaunchScreen.storyboard */; };
 		771FFE061FDB30AC00032A6A /* appkanajsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771FFE051FDB30AC00032A6A /* appkanajsTests.swift */; };
 		771FFE111FDB30AC00032A6A /* appkanajsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771FFE101FDB30AC00032A6A /* appkanajsUITests.swift */; };
@@ -21,6 +20,9 @@
 		776CD4181FDE543900353481 /* GameBoardViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776CD4171FDE543900353481 /* GameBoardViewProtocol.swift */; };
 		776CD41A1FDE552800353481 /* WinViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776CD4191FDE552800353481 /* WinViewProtocol.swift */; };
 		776CD41C1FDE56CE00353481 /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776CD41B1FDE56CE00353481 /* ScoreView.swift */; };
+		776CD4201FE0A5D400353481 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 776CD41F1FE0A5D400353481 /* Assets.xcassets */; };
+		776CD4221FE0ACC400353481 /* TicTacImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776CD4211FE0ACC400353481 /* TicTacImageView.swift */; };
+		776CD4261FE0C1D900353481 /* GameBoardPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776CD4251FE0C1D900353481 /* GameBoardPickerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,7 +47,6 @@
 		771FFDF01FDB30AB00032A6A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		771FFDF21FDB30AB00032A6A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		771FFDF51FDB30AB00032A6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		771FFDF71FDB30AB00032A6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		771FFDFA1FDB30AB00032A6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		771FFDFC1FDB30AB00032A6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		771FFE011FDB30AB00032A6A /* appkanajsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = appkanajsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,6 +62,9 @@
 		776CD4171FDE543900353481 /* GameBoardViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoardViewProtocol.swift; sourceTree = "<group>"; };
 		776CD4191FDE552800353481 /* WinViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinViewProtocol.swift; sourceTree = "<group>"; };
 		776CD41B1FDE56CE00353481 /* ScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
+		776CD41F1FE0A5D400353481 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		776CD4211FE0ACC400353481 /* TicTacImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicTacImageView.swift; sourceTree = "<group>"; };
+		776CD4251FE0C1D900353481 /* GameBoardPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoardPickerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,12 +120,14 @@
 				77224C021FDE416E00FE425C /* GameBoardView.swift */,
 				776CD4171FDE543900353481 /* GameBoardViewProtocol.swift */,
 				776CD41B1FDE56CE00353481 /* ScoreView.swift */,
+				776CD4211FE0ACC400353481 /* TicTacImageView.swift */,
 				77224BFE1FDE2A4400FE425C /* WinView.swift */,
 				776CD4191FDE552800353481 /* WinViewProtocol.swift */,
 				77224C001FDE330600FE425C /* TicTacLogic.swift */,
 				771FFE241FDB5A2900032A6A /* TicTacButton.swift */,
+				776CD4251FE0C1D900353481 /* GameBoardPickerViewController.swift */,
+				776CD41F1FE0A5D400353481 /* Assets.xcassets */,
 				771FFDF41FDB30AB00032A6A /* Main.storyboard */,
-				771FFDF71FDB30AB00032A6A /* Assets.xcassets */,
 				771FFDF91FDB30AB00032A6A /* LaunchScreen.storyboard */,
 				771FFDFC1FDB30AB00032A6A /* Info.plist */,
 			);
@@ -255,7 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				771FFDFB1FDB30AB00032A6A /* LaunchScreen.storyboard in Resources */,
-				771FFDF81FDB30AB00032A6A /* Assets.xcassets in Resources */,
+				776CD4201FE0A5D400353481 /* Assets.xcassets in Resources */,
 				771FFDF61FDB30AB00032A6A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -281,10 +287,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				776CD4221FE0ACC400353481 /* TicTacImageView.swift in Sources */,
 				77224C011FDE330600FE425C /* TicTacLogic.swift in Sources */,
 				771FFDF31FDB30AB00032A6A /* ViewController.swift in Sources */,
 				776CD41C1FDE56CE00353481 /* ScoreView.swift in Sources */,
 				776CD4181FDE543900353481 /* GameBoardViewProtocol.swift in Sources */,
+				776CD4261FE0C1D900353481 /* GameBoardPickerViewController.swift in Sources */,
 				776CD41A1FDE552800353481 /* WinViewProtocol.swift in Sources */,
 				771FFDF11FDB30AB00032A6A /* AppDelegate.swift in Sources */,
 				771FFE251FDB5A2900032A6A /* TicTacButton.swift in Sources */,

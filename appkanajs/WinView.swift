@@ -16,7 +16,6 @@ class WinView: UIView {
     @IBOutlet var circleCountLabel: UILabel!
     @IBOutlet var crossCountLabel: UILabel!
     
-    var lol = false
     
     var winAlert: UIAlertController!
     

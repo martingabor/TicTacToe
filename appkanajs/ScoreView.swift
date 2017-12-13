@@ -5,7 +5,6 @@
 //  Created by Martin Gábor on 11/12/2017.
 //  Copyright © 2017 Martin Gábor. All rights reserved.
 //
-
 import UIKit
 
 
@@ -14,52 +13,120 @@ class ScoreView: UIView {
     @IBOutlet var circleCountLabel: UILabel!
     @IBOutlet var crossCountLabel: UILabel!
     
-    let width = UIScreen.main.bounds.size.width
-    let height = UIScreen.main.bounds.size.height
+    @IBOutlet var crossCounterPictureView: TicTacImageView!
+    @IBOutlet var circleCounterPictureView: TicTacImageView!
     
+    let width = UIScreen.main.bounds.size.width
     let offset: Int = Int((UIScreen.main.bounds.size.height - UIScreen.main.bounds.size.width)/1.25)
     let buttonWidth: Int = Int(UIScreen.main.bounds.size.width/3)
+    
+    weak var delegate: WinViewProtocol? = nil
     
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        
+        //        add white background to whiteCoverView
+        //        this is our bottom layer of Score Board View
         let whiteCoverView = UIView(frame: CGRect(x: 0, y: 0, width: Int(width), height: buttonWidth + 45))
         whiteCoverView.backgroundColor = UIColor.white
         self.addSubview(whiteCoverView)
         
-        let crossCounterPicture = UIImage(named: "Cross.png")
-        let crossCounterPictureView = UIImageView(frame: CGRect(x: 2, y: 25, width: buttonWidth - 4, height: buttonWidth - 4))
+        
+        //        add image subview to the left/right side of scoreboard (whiteCoverView)
+        //        cross image first
+        let crossCounterPicture = UIImage(named: "Cross.png")// normal state
+        crossCounterPictureView = TicTacImageView(frame: CGRect(x: 2, y: 25, width: buttonWidth - 4, height: buttonWidth - 4))
         crossCounterPictureView.image = crossCounterPicture
+        
         whiteCoverView.addSubview(crossCounterPictureView)
         
-        let circleCounterPicture = UIImage(named: "Circle.png")
-        let circleCounterPictureView = UIImageView(frame: CGRect(x: 2 * buttonWidth + 2, y: 25, width: buttonWidth - 4, height: buttonWidth - 4))
+        //        then circle image
+        let circleCounterPicture = UIImage(named: "Circle.png") // normal sate
+        
+        circleCounterPictureView = TicTacImageView(frame: CGRect(x: 2 * buttonWidth + 2, y: 25, width: buttonWidth - 4, height: buttonWidth - 4))
         circleCounterPictureView.image = circleCounterPicture
+        
         whiteCoverView.addSubview(circleCounterPictureView)
         
-        //UICounterl initial setup
+        crossCounterPictureView.isHighlighted = true
+        crossCounterPictureView.layer.borderWidth = 3
+        
+        
+        //        counter labels initial setup
+        //        cross first
         crossCountLabel = UILabel(frame: CGRect(x: 2, y: offset - 70, width: buttonWidth - 4, height: 40))
         crossCountLabel.font = UIFont(name: "Arial Rounded MT Bold", size: 40)
         crossCountLabel.textAlignment = .center
-        
+        //        then circle
         circleCountLabel = UILabel(frame: CGRect(x:  2 * buttonWidth + 2, y: offset - 70, width: buttonWidth - 4, height: 40))
         circleCountLabel.font = UIFont(name: "Arial Rounded MT Bold", size: 40)
         circleCountLabel.textAlignment = .center
-        
-        
+        //        initial setup for cross and circle count labels
+        crossCountLabel.text = "0"
+        circleCountLabel.text = "0"
+        //        add both to the screen
         self.addSubview(crossCountLabel)
         self.addSubview(circleCountLabel)
         
-        crossCountLabel.text = "0"
-        circleCountLabel.text = "0"
+        let resetButton = UIButton(frame: CGRect(x: buttonWidth + 2, y: 55, width: buttonWidth - 4, height: buttonWidth - 54))
+        resetButton.addTarget(self, action: #selector(ScoreView.resetCounters(sender:)), for: .touchUpInside)
+        resetButton.setTitle("RESET", for: .normal)
+        resetButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        resetButton.setTitleColor(UIColor.black, for: .normal)
+        resetButton.layer.borderWidth = 4
+        resetButton.layer.borderColor = UIColor.black.cgColor
+        resetButton.layer.cornerRadius = 25
+        resetButton.isUserInteractionEnabled = true
+        self.addSubview(resetButton)
     }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    func change(crossCount:Int, circleCount: Int) {
-        self.crossCountLabel.text = String(crossCount)
-        self.circleCountLabel.text = String(circleCount)
+    func update(winner: String) {
+        if winner == "X" {
+            self.crossCountLabel.text = String(Int(self.crossCountLabel.text!)! + 1)
+        } else if winner == "O" {
+            self.circleCountLabel.text = String(Int(self.circleCountLabel.text!)! + 1)
+        }
+    }
+    
+    func nextPlayer(){
+        
+        if crossCounterPictureView.isHighlighted {
+            crossCounterPictureView.isHighlighted = false
+            circleCounterPictureView.isHighlighted = true
+            
+            crossCounterPictureView.isWaiting()
+            circleCounterPictureView.onMove()
+            
+            
+        } else if circleCounterPictureView.isHighlighted {
+            circleCounterPictureView.isHighlighted = false
+            crossCounterPictureView.isHighlighted = true
+            
+            crossCounterPictureView.onMove()
+            circleCounterPictureView.isWaiting()
+
+        }
+    }
+    
+    func updateSingPictureBorderColors(color: UIColor){
+        crossCounterPictureView.layer.borderColor = color.cgColor
+        circleCounterPictureView.layer.borderColor = color.cgColor
+    }
+    
+    @IBAction func resetCounters(sender: UIButton){
+        self.delegate?.playAgain()
+
+        crossCountLabel.text = "0"
+        circleCountLabel.text = "0"
+        
     }
     
 }
+
+
+

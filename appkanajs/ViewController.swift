@@ -12,6 +12,7 @@ import UIKit
 @IBDesignable class ViewController: UIViewController {
     
     @IBOutlet var contentView: UIView!
+    private var size: Int = 3
     
     
     
@@ -26,6 +27,7 @@ import UIKit
     
     var scoreView: ScoreView = ScoreView()
     var gameBoardView: GameBoardView!
+    var winView: WinView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,9 +40,15 @@ import UIKit
         self.view.addSubview(scoreView)
         
         //        add gameboard view to view controller
-        gameBoardView = GameBoardView(frame: CGRect(x: 0, y: offset, width: Int(width), height: Int(width)), size: 4)
+        gameBoardView = GameBoardView(frame: CGRect(x: 0, y: offset, width: Int(width), height: Int(width)), size: size)
         self.view.addSubview(gameBoardView)
         gameBoardView.delegate = self
+        
+        let chooseDifferentSizeButton = UIButton(frame: CGRect(x: 0, y: offset + Int(width) + 2, width: Int(width), height: 50))
+        chooseDifferentSizeButton.setTitle("Choose Different Size", for: .normal)
+        chooseDifferentSizeButton.backgroundColor = UIColor.red
+        chooseDifferentSizeButton.addTarget(self, action: #selector(ViewController.chooseDifferentSize), for: .touchUpInside)
+        self.view.addSubview(chooseDifferentSizeButton)
         
     }
     
@@ -53,13 +61,23 @@ import UIKit
         
         return UIColor(red:red, green: green, blue: blue, alpha: 1.0)
     }
+    func setSize(size: Int){
+        self.size = size
+    }
+    
+    @IBAction func chooseDifferentSize(){
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let newGame = storyBoard.instantiateViewController(withIdentifier: "GameBoardPickerViewController") as! GameBoardPickerViewController
+        self.present(newGame, animated: true, completion: nil)
+    }
 }
 extension ViewController: GameBoardViewProtocol {
     func winnerIs(winner: String) {
         //        create win view and update score
-        let winView = WinView(frame: CGRect(x: 0, y: offset, width: Int(width), height: Int(width)), winner: winner)
-        self.view.addSubview(winView)
-        winView.delegate = self
+        winView = WinView(frame: CGRect(x: 0, y: offset, width: Int(width), height: Int(width)), winner: winner)
+        self.view.addSubview((winView)!)
+        winView?.delegate = self
         scoreView.update(winner: winner)
     }
     func nextPlayer() {
@@ -71,9 +89,11 @@ extension ViewController: WinViewProtocol {
     //    play again function -- for play again button in WinViewController
     func playAgain() {
         gameBoardView.resetButtons()
+        winView?.removeFromSuperview()
         self.view.backgroundColor = getRandomColor()
         scoreView.updateSingPictureBorderColors(color: self.view.backgroundColor!)
     }
+    
 }
 
 

@@ -120,7 +120,7 @@ class ScoreView: UIView {
     
     @IBAction func resetCounters(sender: UIButton){
         self.delegate?.playAgain()
-
+        
         crossCountLabel.text = "0"
         circleCountLabel.text = "0"
         

@@ -73,7 +73,6 @@ class WinView: UIView {
     //MARK: Actions
     
     @IBAction func playAgain(_ sender: UIButton){
-        self.removeFromSuperview()
         self.delegate?.playAgain()
     }
     

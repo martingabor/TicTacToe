@@ -22,8 +22,8 @@ func didWin(buttonsArr:[[TicTacButton]]) -> Int{
     var diag2 = 0
     let size = buttonsArr.count
     
-    for i in 0..<size {
-        for j in 0..<size {
+    for i in 0..<size{
+        for j in 0..<size{
             if buttonsArr[i][j].playerValue != -100 {
                 counter += 1
             }
@@ -36,7 +36,7 @@ func didWin(buttonsArr:[[TicTacButton]]) -> Int{
                 diag2 += buttonsArr[i][j].playerValue
             }
         }
-       
+        
         if row == 0 || column == 0 {
             //0 win
             return 0
@@ -47,6 +47,7 @@ func didWin(buttonsArr:[[TicTacButton]]) -> Int{
         }
         row = 0
         column = 0
+
     }
     if diag1 == 0 || diag2 == 0 {
         //O win
@@ -56,8 +57,8 @@ func didWin(buttonsArr:[[TicTacButton]]) -> Int{
     if diag1 == size || diag2 == size {
         //X win
         return 1
-        
     }
+    
     // remiza
     if counter == size * size{
         return -1

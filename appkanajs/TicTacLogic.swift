@@ -8,61 +8,35 @@
 
 import Foundation
 
-func didWin(buttonsArr:[[TicTacButton]]) -> Int{
+func didWin(buttonsArr: [[TicTacButton]],x: Int, y: Int, sign: Int) -> Bool{
+    NSLog("For Button [%d,%d] with sign %d",x , y, sign)
+    let col = 1 +
+        findWinner(buttonsArr: buttonsArr, x: x, y: y - 1, offset_x: 0, offset_y: -1, sign: sign) +
+        findWinner(buttonsArr: buttonsArr, x: x, y: y + 1, offset_x: 0, offset_y: 1, sign: sign)
+    NSLog("Col =  %d", col)
+    let row = 1 +
+        findWinner(buttonsArr: buttonsArr, x: x - 1, y: y, offset_x: -1, offset_y: 0, sign: sign) +
+        findWinner(buttonsArr: buttonsArr, x: x + 1, y: y, offset_x: 1, offset_y: 0, sign: sign)
+    NSLog("Row =  %d", row)
+    let diag1 = 1 +
+        findWinner(buttonsArr: buttonsArr, x: x - 1, y: y - 1, offset_x: -1, offset_y: -1, sign: sign) +
+        findWinner(buttonsArr: buttonsArr, x: x + 1, y: y + 1, offset_x: 1, offset_y: 1, sign: sign)
+    NSLog("Diag1 = %d", diag1)
     
-    // 1 ak vyhra X
-    // 0 ak vyhra O
-    // 2 ak sa este hra
-    // -1 ak je remiza
-    
-    var counter = 0
-    var row = 0
-    var column = 0
-    var diag1 = 0
-    var diag2 = 0
-    let size = buttonsArr.count
-    
-    for i in 0..<size{
-        for j in 0..<size{
-            if buttonsArr[i][j].playerValue != -100 {
-                counter += 1
-            }
-            row += buttonsArr[i][j].playerValue
-            column += buttonsArr[j][i].playerValue
-            if i == j {
-                diag1 += buttonsArr[i][j].playerValue
-            }
-            if i + j == size - 1 {
-                diag2 += buttonsArr[i][j].playerValue
-            }
-        }
-        
-        if row == 0 || column == 0 {
-            //0 win
-            return 0
-        } else if  row == size || column == size {
-            //X win
-            return 1
-            
-        }
-        row = 0
-        column = 0
+    let diag2 = 1 +
+        findWinner(buttonsArr: buttonsArr, x: x - 1, y: y + 1, offset_x: -1, offset_y: 1, sign: sign) +
+        findWinner(buttonsArr: buttonsArr, x: x + 1, y: y - 1, offset_x: 1, offset_y: -1, sign: sign)
+    NSLog("Diag2 = %d\nEND.", diag2)
+    if row >= 3 || col >= 3 || diag1 >= 3 || diag2 >= 3 {
+        return true
+    }
+    return false
+}
 
+func findWinner(buttonsArr: [[TicTacButton]], x: Int, y: Int, offset_x: Int, offset_y: Int, sign: Int) -> Int {
+    let size = Int(buttonsArr.count)
+    if (x < size && x >= 0) && (y < size && y >= 0) && buttonsArr[x][y].playerValue == sign {
+        return 1 + findWinner(buttonsArr: buttonsArr, x: x + offset_x, y: y + offset_y, offset_x: offset_x, offset_y: offset_y, sign: sign)
     }
-    if diag1 == 0 || diag2 == 0 {
-        //O win
-        return 0
-        
-    }
-    if diag1 == size || diag2 == size {
-        //X win
-        return 1
-    }
-    
-    // remiza
-    if counter == size * size{
-        return -1
-    }
-    return 2
-    
+    return 0
 }

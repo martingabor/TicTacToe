@@ -19,7 +19,7 @@ class GameBoardView: UIView {
     var circleCount = 0
     
     var size = 3
-        
+    
     
     var buttons = [[TicTacButton]]()
     
@@ -77,7 +77,7 @@ class GameBoardView: UIView {
     @IBAction func handleTap(sender: TicTacButton){
         // change highlighted icon 
         self.delegate?.nextPlayer()
-
+        
         
         let image = UIImage(named: sign)
         sender.setBackgroundImage(image, for: UIControlState.normal)
@@ -91,28 +91,40 @@ class GameBoardView: UIView {
             sender.playerValue = 0
         }
         
-        switch didWin(buttonsArr: buttons){
-        case 1: do {
-            print("X win")
-            crossCount += 1
-            if crossCount == 10 {
-                crossCount = 0
-                circleCount = 0
+        if didWin(buttonsArr: buttons, x: sender.x, y: sender.y, sign: sender.playerValue) {
+            print(String(sender.playerValue) + "win")
+            let winner: String!
+            if sender.playerValue == 1{
+                winner = "X"
+            } else {
+                winner = "O"
             }
-            self.delegate?.winnerIs(winner:"X")}
-        case 0: do {
-            print("O win");
-            circleCount += 1
-            if circleCount == 10 {
-                crossCount = 0
-                circleCount = 0
-            }
-            self.delegate?.winnerIs(winner:"O")}
-        case -1 : print("TIE");
-        self.delegate?.winnerIs(winner: "TIE");
-        default: print("este sa hra")
-            
+            self.delegate?.winnerIs(winner: winner)
         }
     }
+    
+    /*   switch didWin(buttonsArr: buttons, x: sender.x, y: sender.y, sign: sender.playerValue){
+     case 1: do {
+     print("X win")
+     crossCount += 1
+     if crossCount == 10 {
+     crossCount = 0
+     circleCount = 0
+     }
+     self.delegate?.winnerIs(winner:"X")}
+     case 0: do {
+     print("O win");
+     circleCount += 1
+     if circleCount == 10 {
+     crossCount = 0
+     circleCount = 0
+     }
+     self.delegate?.winnerIs(winner:"O")}
+     case -1 : print("TIE");
+     self.delegate?.winnerIs(winner: "TIE");
+     default: print("este sa hra")
+     
+     }*/
+    
     
 }

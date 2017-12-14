@@ -19,7 +19,7 @@ import UIKit
     
     let width = UIScreen.main.bounds.size.width
     let height = UIScreen.main.bounds.size.height
-    let offset: Int = Int((UIScreen.main.bounds.size.height - UIScreen.main.bounds.size.width)/1.25)
+    let offset: Int = Int((UIScreen.main.bounds.size.height - UIScreen.main.bounds.size.width)/1.25) // 80% of of empty screen space
     
     
     var scoreView: ScoreView!
@@ -31,11 +31,13 @@ import UIKit
         self.view.backgroundColor = self.getRandomColor() // random color for background
         
         //        add score view to view controller
-        scoreView = ScoreView(frame: CGRect(x: 0, y: 20, width: Int(width), height: offset), winChainSize: String(self.winChainSize))
+        scoreView = ScoreView(frame: CGRect(x: 0, y: 0, width: Int(width), height: offset), winChainSize: String(self.winChainSize))
         scoreView.updateSingPictureBorderColors(color: self.view.backgroundColor!)
         scoreView.delegate = self
-        self.view.addSubview(scoreView)
         
+        
+        self.view.addSubview(scoreView)
+
         //        add gameboard view to view controller
         gameBoardView = GameBoardView(frame: CGRect(x: 0, y: offset, width: Int(width), height: Int(width)), size: size, winChainSize: winChainSize)
         self.view.addSubview(gameBoardView)
@@ -81,10 +83,10 @@ extension ViewController: GameBoardViewProtocol {
         winView = WinView(frame: CGRect(x: 0, y: offset, width: Int(width), height: Int(width)), winner: winner)
         self.view.addSubview((winView)!)
         winView?.delegate = self
-        scoreView.update(winner: winner)
+       // scoreView.update(winner: winner)
     }
     func nextPlayer() {
-        scoreView.nextPlayer()
+        //scoreView.nextPlayer()
     }
 }
 
@@ -94,7 +96,7 @@ extension ViewController: WinViewProtocol {
         gameBoardView.resetButtons()
         winView?.removeFromSuperview()
         self.view.backgroundColor = getRandomColor()
-        scoreView.updateSingPictureBorderColors(color: self.view.backgroundColor!)
+        //scoreView.updateSingPictureBorderColors(color: self.view.backgroundColor!)
     }
     
 }

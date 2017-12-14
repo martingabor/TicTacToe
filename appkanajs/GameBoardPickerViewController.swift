@@ -10,50 +10,189 @@ import UIKit
 
 let width = UIScreen.main.bounds.size.width
 let height = UIScreen.main.bounds.size.height
-let offset: Int = Int((UIScreen.main.bounds.size.height - UIScreen.main.bounds.size.width)/1.25)
+let offset: Int = Int((UIScreen.main.bounds.size.height - UIScreen.main.bounds.size.width) * 0.8)//80% of empty screen space
 
 
 class GameBoardPickerViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
-    var gameBoardSizePickerView: UIPickerView = UIPickerView()
+    private var gameBoardSizePickerView: UIPickerView = UIPickerView()
+    private var pickBoardSizeLabel: UILabel = UILabel()
+    private var pickWinChainSizeLabel: UILabel = UILabel()
+    private var pickButton: UIButton = UIButton()
     
-    var pickerData: [Int] = [Int]()
+    private var pickerData: [Int] = [3,4,5,6,7,8]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let pickBoardSizeLabel = UILabel(frame: CGRect(x: 0, y: 60, width: Int(width/2), height: 60))
-        pickBoardSizeLabel.text = "Game Board size"
+        pickBoardSizeLabel.text = "GAME BOARD SIZE"
         pickBoardSizeLabel.font = UIFont(name: "Arial Rounded MT Bold", size: 25)
         pickBoardSizeLabel.lineBreakMode = .byWordWrapping
         pickBoardSizeLabel.numberOfLines = 0
         pickBoardSizeLabel.textAlignment = .center
         self.view.addSubview(pickBoardSizeLabel)
         
-        let pickWinChainSizeLabel = UILabel(frame: CGRect(x: Int(width/2), y: 60, width: Int(width/2), height: 60))
-        pickWinChainSizeLabel.text = "Win Chain size"
+        pickWinChainSizeLabel.text = "WIN CHAIN SIZE"
         pickWinChainSizeLabel.font = UIFont(name: "Arial Rounded MT Bold", size: 25)
         pickWinChainSizeLabel.lineBreakMode = .byWordWrapping
         pickWinChainSizeLabel.numberOfLines = 0
-        pickBoardSizeLabel.textAlignment = .center
+        pickWinChainSizeLabel.textAlignment = .center
         self.view.addSubview(pickWinChainSizeLabel)
         
-        pickerData = [3,4,5,6,7,8]
+        pickButton.setTitle("Confirm choice", for: .normal)
+        pickButton.titleLabel?.font = UIFont(name: "Arial Rounded MT Bold", size: 20)
+        pickButton.backgroundColor = UIColor.red
+        pickButton.addTarget(self, action: #selector(GameBoardPickerViewController.sizePicked(sender:)), for: .touchUpInside)
+        self.view.addSubview(pickButton)
         
-        gameBoardSizePickerView = UIPickerView(frame: CGRect(x: 0, y: 130, width: Int(width), height: Int(width)))
         gameBoardSizePickerView.delegate = self
         gameBoardSizePickerView.dataSource = self
-        
         self.view.addSubview(gameBoardSizePickerView)
         
         
-        let pickButton = UIButton(frame: CGRect(x: 0, y: offset + Int(width), width: Int(width), height: 50))
-        pickButton.setTitle("Pick size", for: .normal)
-        pickButton.titleLabel?.font = UIFont(name: "Arial Rounded MT Bold", size: 20)
-        pickButton.backgroundColor = UIColor.red
+        //MARK: pickBoardSizeLabel Constraints
+        var pickBoardSizeLabelConstraints = [NSLayoutConstraint]()
+        pickBoardSizeLabelConstraints.append(NSLayoutConstraint(item: pickBoardSizeLabel,
+                                                                attribute: .top,
+                                                                relatedBy: .equal,
+                                                                toItem: view,
+                                                                attribute: .topMargin,
+                                                                multiplier: 1,
+                                                                constant: 40))
+        pickBoardSizeLabelConstraints.append(NSLayoutConstraint(item: pickBoardSizeLabel,
+                                                                attribute: .leading,
+                                                                relatedBy: .equal,
+                                                                toItem: view,
+                                                                attribute: .leading,
+                                                                multiplier: 1,
+                                                                constant: 40))
+        pickBoardSizeLabelConstraints.append(NSLayoutConstraint(item: pickBoardSizeLabel,
+                                                                attribute: .trailing,
+                                                                relatedBy: .equal,
+                                                                toItem: view,
+                                                                attribute: .centerX,
+                                                                multiplier: 1,
+                                                                constant: -5))
+        pickBoardSizeLabelConstraints.append(NSLayoutConstraint(item: pickBoardSizeLabel,
+                                                                attribute: .height,
+                                                                relatedBy: .equal,
+                                                                toItem: nil,
+                                                                attribute: .notAnAttribute,
+                                                                multiplier: 1,
+                                                                constant: 60))
+        pickBoardSizeLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        pickButton.addTarget(self, action: #selector(GameBoardPickerViewController.sizePicked(sender:)), for: .touchUpInside)
-        self.view.addSubview(pickButton)
+        NSLayoutConstraint.activate(pickBoardSizeLabelConstraints)
+        
+        
+        //MARK:pickWinChainSizeLabel Constraints
+        var pickWinChainSizeLabelConstraints = [NSLayoutConstraint]()
+        pickWinChainSizeLabelConstraints.append(NSLayoutConstraint(item: pickWinChainSizeLabel,
+                                                                   attribute: .top,
+                                                                   relatedBy: .equal,
+                                                                   toItem: view,
+                                                                   attribute: .topMargin,
+                                                                   multiplier: 1,
+                                                                   constant: 40))
+        pickWinChainSizeLabelConstraints.append(NSLayoutConstraint(item: pickWinChainSizeLabel,
+                                                                   attribute: .leading,
+                                                                   relatedBy: .equal,
+                                                                   toItem: view,
+                                                                   attribute: .centerX,
+                                                                   multiplier: 1,
+                                                                   constant: 5))
+        pickWinChainSizeLabelConstraints.append(NSLayoutConstraint(item: pickWinChainSizeLabel,
+                                                                   attribute: .trailing,
+                                                                   relatedBy: .equal,
+                                                                   toItem: view,
+                                                                   attribute: .trailing,
+                                                                   multiplier: 1,
+                                                                   constant: -10))
+        pickWinChainSizeLabelConstraints.append(NSLayoutConstraint(item: pickWinChainSizeLabel,
+                                                                   attribute: .height,
+                                                                   relatedBy: .equal,
+                                                                   toItem: nil,
+                                                                   attribute: .notAnAttribute,
+                                                                   multiplier: 1,
+                                                                   constant: 60))
+        pickWinChainSizeLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate(pickWinChainSizeLabelConstraints)
+        
+        
+        //MARK: pickButton Constraints
+        var pickButtonConstraints = [NSLayoutConstraint]()
+        pickButtonConstraints.append(NSLayoutConstraint(item: pickButton,
+                                                            attribute: .bottom,
+                                                            relatedBy: .equal,
+                                                            toItem: view,
+                                                            attribute: .bottom,
+                                                            multiplier: 1,
+                                                            constant: -20))
+        pickButtonConstraints.append(NSLayoutConstraint(item: pickButton,
+                                                             attribute: .leading,
+                                                             relatedBy: .equal,
+                                                             toItem: view,
+                                                             attribute: .leading,
+                                                             multiplier: 1,
+                                                             constant: 0))
+        pickButtonConstraints.append(NSLayoutConstraint(item: pickButton,
+                                                              attribute: .trailing,
+                                                              relatedBy: .equal,
+                                                              toItem: view,
+                                                              attribute: .trailing,
+                                                              multiplier: 1,
+                                                              constant: 0))
+        pickButtonConstraints.append(NSLayoutConstraint(item: pickButton,
+                                                            attribute: .height,
+                                                            relatedBy: .equal,
+                                                            toItem: nil,
+                                                            attribute: .notAnAttribute,
+                                                            multiplier: 1,
+                                                            constant: 50))
+        pickButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate(pickButtonConstraints)
+        
+        //MARK: gameBoardSizePickerView Constraints
+        var gameBoardSizePickerViewConstraints = [NSLayoutConstraint]()
+        gameBoardSizePickerViewConstraints.append(NSLayoutConstraint(item: gameBoardSizePickerView,
+                                                                     attribute: .top,
+                                                                     relatedBy: .equal,
+                                                                     toItem: pickBoardSizeLabel,
+                                                                     attribute: .bottom,
+                                                                     multiplier: 1,
+                                                                     constant: 40))
+        gameBoardSizePickerViewConstraints.append(NSLayoutConstraint(item: gameBoardSizePickerView,
+                                                                     attribute: .top,
+                                                                     relatedBy: .equal,
+                                                                     toItem: pickWinChainSizeLabel,
+                                                                     attribute: .bottom,
+                                                                     multiplier: 1,
+                                                                     constant: 40))
+        gameBoardSizePickerViewConstraints.append(NSLayoutConstraint(item: gameBoardSizePickerView,
+                                                                     attribute: .leading,
+                                                                     relatedBy: .equal,
+                                                                     toItem: view,
+                                                                     attribute: .leading,
+                                                                     multiplier: 1,
+                                                                     constant: 0))
+        gameBoardSizePickerViewConstraints.append(NSLayoutConstraint(item: gameBoardSizePickerView,
+                                                                     attribute: .trailing,
+                                                                     relatedBy: .equal,
+                                                                     toItem: view,
+                                                                     attribute: .trailing,
+                                                                     multiplier: 1,
+                                                                     constant: 0))
+        gameBoardSizePickerViewConstraints.append(NSLayoutConstraint(item: gameBoardSizePickerView,
+                                                                     attribute: .bottom,
+                                                                     relatedBy: .equal,
+                                                                     toItem: pickButton,
+                                                                     attribute: .topMargin,
+                                                                     multiplier: 1,
+                                                                     constant: -25))
+        gameBoardSizePickerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate(gameBoardSizePickerViewConstraints)
         
     }
     
@@ -79,7 +218,6 @@ class GameBoardPickerViewController: UIViewController, UIPickerViewDataSource, U
         if component == 0 {
             return String(pickerData[row])
         }
-        print(self.gameBoardSizePickerView.selectedRow(inComponent: 0))
         
         return String(ArraySlice(pickerData[0...self.gameBoardSizePickerView.selectedRow(inComponent: 0)])[row])
     }
@@ -103,16 +241,5 @@ class GameBoardPickerViewController: UIViewController, UIPickerViewDataSource, U
         
         self.present(newGame, animated: true, completion: nil)
     }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }

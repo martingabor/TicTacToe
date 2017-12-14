@@ -467,6 +467,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C8P882SGSG;
 				INFOPLIST_FILE = appkanajs/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = MocinGejbr.TicTacToe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -484,6 +485,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C8P882SGSG;
 				INFOPLIST_FILE = appkanajs/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = MocinGejbr.TicTacToe;
 				PRODUCT_NAME = "$(TARGET_NAME)";

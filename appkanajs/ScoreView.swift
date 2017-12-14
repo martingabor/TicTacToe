@@ -18,7 +18,7 @@ class ScoreView: UIView {
     @IBOutlet var circleCounterPictureView: TicTacImageView!
     
     let width = UIScreen.main.bounds.size.width
-    let offset: Int = Int((UIScreen.main.bounds.size.height - UIScreen.main.bounds.size.width)/1.25)
+    let offset: Int = Int((UIScreen.main.bounds.size.height - UIScreen.main.bounds.size.width) * 0.8)//80% of screen size
     let buttonWidth: Int = Int(UIScreen.main.bounds.size.width/3)
     
     weak var delegate: WinViewProtocol? = nil

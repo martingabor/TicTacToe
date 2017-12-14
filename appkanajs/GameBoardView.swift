@@ -96,7 +96,7 @@ class GameBoardView: UIView {
             sign = "Cross.png"
             sender.playerValue = 0
         }
-        NSLog("[%d,%d]", sender.x,sender.y)
+
         if didWin(buttonsArr: buttons, x: sender.x, y: sender.y, sign: sender.playerValue, winChainSize: winChainSize) {
             print(String(sender.playerValue) + " win")
             let winner: String!

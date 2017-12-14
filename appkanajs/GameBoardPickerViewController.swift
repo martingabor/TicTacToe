@@ -25,15 +25,18 @@ class GameBoardPickerViewController: UIViewController, UIPickerViewDataSource, U
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        pickBoardSizeLabel.text = "GAME BOARD SIZE"
+        pickBoardSizeLabel.text = "GAMEBOARD SIZE"
         pickBoardSizeLabel.font = UIFont(name: "Arial Rounded MT Bold", size: 25)
+        pickBoardSizeLabel.adjustsFontSizeToFitWidth = true
+        
         pickBoardSizeLabel.lineBreakMode = .byWordWrapping
         pickBoardSizeLabel.numberOfLines = 0
         pickBoardSizeLabel.textAlignment = .center
         self.view.addSubview(pickBoardSizeLabel)
         
-        pickWinChainSizeLabel.text = "WIN CHAIN SIZE"
+        pickWinChainSizeLabel.text = "WINCHAIN SIZE"
         pickWinChainSizeLabel.font = UIFont(name: "Arial Rounded MT Bold", size: 25)
+        pickWinChainSizeLabel.adjustsFontSizeToFitWidth = true
         pickWinChainSizeLabel.lineBreakMode = .byWordWrapping
         pickWinChainSizeLabel.numberOfLines = 0
         pickWinChainSizeLabel.textAlignment = .center
@@ -49,9 +52,10 @@ class GameBoardPickerViewController: UIViewController, UIPickerViewDataSource, U
         gameBoardSizePickerView.dataSource = self
         self.view.addSubview(gameBoardSizePickerView)
         
-        
-        //MARK: pickBoardSizeLabel Constraints
+        //        MARK: Layout
+        //        pickBoardSizeLabel Constraints
         var pickBoardSizeLabelConstraints = [NSLayoutConstraint]()
+        //        TOP CONSTRAINT
         pickBoardSizeLabelConstraints.append(NSLayoutConstraint(item: pickBoardSizeLabel,
                                                                 attribute: .top,
                                                                 relatedBy: .equal,
@@ -59,13 +63,15 @@ class GameBoardPickerViewController: UIViewController, UIPickerViewDataSource, U
                                                                 attribute: .topMargin,
                                                                 multiplier: 1,
                                                                 constant: 40))
+        //        LEADING CONSTRAINT
         pickBoardSizeLabelConstraints.append(NSLayoutConstraint(item: pickBoardSizeLabel,
                                                                 attribute: .leading,
                                                                 relatedBy: .equal,
                                                                 toItem: view,
                                                                 attribute: .leading,
                                                                 multiplier: 1,
-                                                                constant: 40))
+                                                                constant: 10))
+        //        TRAILING CONSTRAINT
         pickBoardSizeLabelConstraints.append(NSLayoutConstraint(item: pickBoardSizeLabel,
                                                                 attribute: .trailing,
                                                                 relatedBy: .equal,
@@ -73,20 +79,22 @@ class GameBoardPickerViewController: UIViewController, UIPickerViewDataSource, U
                                                                 attribute: .centerX,
                                                                 multiplier: 1,
                                                                 constant: -5))
+        //        HEIGHT CONSTRAINT
         pickBoardSizeLabelConstraints.append(NSLayoutConstraint(item: pickBoardSizeLabel,
                                                                 attribute: .height,
                                                                 relatedBy: .equal,
                                                                 toItem: nil,
                                                                 attribute: .notAnAttribute,
                                                                 multiplier: 1,
-                                                                constant: 60))
+                                                                constant: 80))
         pickBoardSizeLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate(pickBoardSizeLabelConstraints)
         
         
-        //MARK:pickWinChainSizeLabel Constraints
+        //        pickWinChainSizeLabel Constraints
         var pickWinChainSizeLabelConstraints = [NSLayoutConstraint]()
+        //        TOP CONSTRAINT
         pickWinChainSizeLabelConstraints.append(NSLayoutConstraint(item: pickWinChainSizeLabel,
                                                                    attribute: .top,
                                                                    relatedBy: .equal,
@@ -94,6 +102,7 @@ class GameBoardPickerViewController: UIViewController, UIPickerViewDataSource, U
                                                                    attribute: .topMargin,
                                                                    multiplier: 1,
                                                                    constant: 40))
+        //        LEADING CONSTRAINT
         pickWinChainSizeLabelConstraints.append(NSLayoutConstraint(item: pickWinChainSizeLabel,
                                                                    attribute: .leading,
                                                                    relatedBy: .equal,
@@ -101,6 +110,7 @@ class GameBoardPickerViewController: UIViewController, UIPickerViewDataSource, U
                                                                    attribute: .centerX,
                                                                    multiplier: 1,
                                                                    constant: 5))
+        //        TRAILING CONSTRAINT
         pickWinChainSizeLabelConstraints.append(NSLayoutConstraint(item: pickWinChainSizeLabel,
                                                                    attribute: .trailing,
                                                                    relatedBy: .equal,
@@ -108,53 +118,60 @@ class GameBoardPickerViewController: UIViewController, UIPickerViewDataSource, U
                                                                    attribute: .trailing,
                                                                    multiplier: 1,
                                                                    constant: -10))
+        //        HEIGHT CONSTRAINT
         pickWinChainSizeLabelConstraints.append(NSLayoutConstraint(item: pickWinChainSizeLabel,
                                                                    attribute: .height,
                                                                    relatedBy: .equal,
                                                                    toItem: nil,
                                                                    attribute: .notAnAttribute,
                                                                    multiplier: 1,
-                                                                   constant: 60))
+                                                                   constant: 80))
         pickWinChainSizeLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate(pickWinChainSizeLabelConstraints)
         
         
-        //MARK: pickButton Constraints
+        //        pickButton Constraints
         var pickButtonConstraints = [NSLayoutConstraint]()
+        //        BOTTOM CONSTRAINT
         pickButtonConstraints.append(NSLayoutConstraint(item: pickButton,
-                                                            attribute: .bottom,
-                                                            relatedBy: .equal,
-                                                            toItem: view,
-                                                            attribute: .bottom,
-                                                            multiplier: 1,
-                                                            constant: -20))
+                                                        attribute: .bottom,
+                                                        relatedBy: .equal,
+                                                        toItem: view,
+                                                        attribute: .bottom,
+                                                        multiplier: 1,
+                                                        constant: -20))
+        //        LEADING CONSTRAINT
         pickButtonConstraints.append(NSLayoutConstraint(item: pickButton,
-                                                             attribute: .leading,
-                                                             relatedBy: .equal,
-                                                             toItem: view,
-                                                             attribute: .leading,
-                                                             multiplier: 1,
-                                                             constant: 0))
+                                                        attribute: .leading,
+                                                        relatedBy: .equal,
+                                                        toItem: view,
+                                                        attribute: .leading,
+                                                        multiplier: 1,
+                                                        constant: 0))
+        //        TRAILING CONSTRAINT
         pickButtonConstraints.append(NSLayoutConstraint(item: pickButton,
-                                                              attribute: .trailing,
-                                                              relatedBy: .equal,
-                                                              toItem: view,
-                                                              attribute: .trailing,
-                                                              multiplier: 1,
-                                                              constant: 0))
+                                                        attribute: .trailing,
+                                                        relatedBy: .equal,
+                                                        toItem: view,
+                                                        attribute: .trailing,
+                                                        multiplier: 1,
+                                                        constant: 0))
+        //        HEIGHT CONSTRAINT
         pickButtonConstraints.append(NSLayoutConstraint(item: pickButton,
-                                                            attribute: .height,
-                                                            relatedBy: .equal,
-                                                            toItem: nil,
-                                                            attribute: .notAnAttribute,
-                                                            multiplier: 1,
-                                                            constant: 50))
+                                                        attribute: .height,
+                                                        relatedBy: .equal,
+                                                        toItem: nil,
+                                                        attribute: .notAnAttribute,
+                                                        multiplier: 1,
+                                                        constant: 50))
         pickButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate(pickButtonConstraints)
         
-        //MARK: gameBoardSizePickerView Constraints
+        
+        //        gameBoardSizePickerView Constraints
         var gameBoardSizePickerViewConstraints = [NSLayoutConstraint]()
+        //        1st TOP CONSTRAINT
         gameBoardSizePickerViewConstraints.append(NSLayoutConstraint(item: gameBoardSizePickerView,
                                                                      attribute: .top,
                                                                      relatedBy: .equal,
@@ -162,6 +179,7 @@ class GameBoardPickerViewController: UIViewController, UIPickerViewDataSource, U
                                                                      attribute: .bottom,
                                                                      multiplier: 1,
                                                                      constant: 40))
+        //        2nd TOP CONSTRAINT
         gameBoardSizePickerViewConstraints.append(NSLayoutConstraint(item: gameBoardSizePickerView,
                                                                      attribute: .top,
                                                                      relatedBy: .equal,
@@ -169,6 +187,7 @@ class GameBoardPickerViewController: UIViewController, UIPickerViewDataSource, U
                                                                      attribute: .bottom,
                                                                      multiplier: 1,
                                                                      constant: 40))
+        //        LEADING CONSTRAINT
         gameBoardSizePickerViewConstraints.append(NSLayoutConstraint(item: gameBoardSizePickerView,
                                                                      attribute: .leading,
                                                                      relatedBy: .equal,
@@ -176,6 +195,7 @@ class GameBoardPickerViewController: UIViewController, UIPickerViewDataSource, U
                                                                      attribute: .leading,
                                                                      multiplier: 1,
                                                                      constant: 0))
+        //        TRAILING CONSTRAINT
         gameBoardSizePickerViewConstraints.append(NSLayoutConstraint(item: gameBoardSizePickerView,
                                                                      attribute: .trailing,
                                                                      relatedBy: .equal,
@@ -183,6 +203,7 @@ class GameBoardPickerViewController: UIViewController, UIPickerViewDataSource, U
                                                                      attribute: .trailing,
                                                                      multiplier: 1,
                                                                      constant: 0))
+        //        BOTTOM CONSTRAINT
         gameBoardSizePickerViewConstraints.append(NSLayoutConstraint(item: gameBoardSizePickerView,
                                                                      attribute: .bottom,
                                                                      relatedBy: .equal,

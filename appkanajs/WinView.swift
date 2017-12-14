@@ -63,7 +63,7 @@ class WinView: UIView {
         playAgainButton.backgroundColor = ViewController().getRandomColor()
         
         playAgainButton.addTarget(self,
-                                  action: #selector(playAgain(_:)), for: .touchUpInside)
+                                  action: #selector(WinView.playAgain(_:)), for: .touchUpInside)
         contentView.addSubview(playAgainButton)
     }
     required init?(coder aDecoder: NSCoder) {

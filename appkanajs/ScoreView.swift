@@ -7,39 +7,56 @@
 //
 import UIKit
 
+protocol ScoreViewProtocol: NSObjectProtocol {
+    func setupInitConstraints()
+}
+
 
 class ScoreView: UIView {
     
-    @IBOutlet var circleCountLabel: UILabel!
     @IBOutlet var crossCountLabel: UILabel!
+    @IBOutlet var circleCountLabel: UILabel!
     @IBOutlet var winChainSizeLabel: UILabel!
+    @IBOutlet var resetButton: UIButton!
     
     @IBOutlet var crossCounterPictureView: TicTacImageView!
     @IBOutlet var circleCounterPictureView: TicTacImageView!
     
-    let width = UIScreen.main.bounds.size.width
     let offset: Int = Int((UIScreen.main.bounds.size.height - UIScreen.main.bounds.size.width) * 0.8)//80% of screen size
     let buttonWidth: Int = Int(UIScreen.main.bounds.size.width/3)
+    private var parent: UIView!
     
     weak var delegate: WinViewProtocol? = nil
     weak var delegate2: GameBoardViewProtocol? = nil
+    weak var delegate3: ScoreViewProtocol? = nil
     
     
-    init(frame: CGRect, winChainSize: String) {
-        super.init(frame: frame)
+    
+    var whiteCoverView: UIView!
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    init(winChainSize: String) {
+        let frame = CGRect(x: 0, y: 0, width: width, height: CGFloat(offset))
         
+        super.init(frame: frame)
+        //self.delegate3?.setupInitConstraints()
         
         //        add white background to whiteCoverView
         //        this is our bottom layer of Score Board View
-        let whiteCoverView = UIView(frame: CGRect(x: 0, y: 0, width: Int(width), height: buttonWidth + 45))
-        whiteCoverView.backgroundColor = UIColor.white
+        whiteCoverView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height:0))
+        whiteCoverView.backgroundColor = .white
+        
         self.addSubview(whiteCoverView)
+        
+        
         
         
         //        add image subview to the left/right side of scoreboard (whiteCoverView)
         //        cross image first
         let crossCounterPicture = UIImage(named: "Cross.png")// normal state
-        crossCounterPictureView = TicTacImageView(frame: CGRect(x: 2, y: 25, width: buttonWidth - 4, height: buttonWidth - 4))
+        crossCounterPictureView = TicTacImageView(frame: CGRect(x: 2, y: 2, width: buttonWidth - 4, height: buttonWidth - 4))
         crossCounterPictureView.image = crossCounterPicture
         
         whiteCoverView.addSubview(crossCounterPictureView)
@@ -47,11 +64,10 @@ class ScoreView: UIView {
         //        then circle image
         let circleCounterPicture = UIImage(named: "Circle.png") // normal sate
         
-        circleCounterPictureView = TicTacImageView(frame: CGRect(x: 2 * buttonWidth + 2, y: 25, width: buttonWidth - 4, height: buttonWidth - 4))
+        circleCounterPictureView = TicTacImageView(frame: CGRect(x: 2 * buttonWidth + 2, y: 2, width: buttonWidth - 4, height: buttonWidth - 4))
         circleCounterPictureView.image = circleCounterPicture
-        
         whiteCoverView.addSubview(circleCounterPictureView)
-        
+        //cross starts
         crossCounterPictureView.isHighlighted = true
         crossCounterPictureView.layer.borderWidth = 3
         
@@ -72,27 +88,175 @@ class ScoreView: UIView {
         self.addSubview(crossCountLabel)
         self.addSubview(circleCountLabel)
         
-        winChainSizeLabel = UILabel(frame: CGRect(x: buttonWidth + 2, y: offset - 70, width: buttonWidth - 4, height: 40))
+        
+        
+        
+        winChainSizeLabel = UILabel(/*frame: CGRect(x: buttonWidth + 2, y: offset - 70, width: buttonWidth - 4, height: 40)*/)
         winChainSizeLabel.text = "Win Chain Size: " + winChainSize
         winChainSizeLabel.font = UIFont(name: "Arial Rounded MT Bold", size: 16)
         winChainSizeLabel.lineBreakMode = .byWordWrapping
         winChainSizeLabel.numberOfLines = 0
         self.addSubview(winChainSizeLabel)
         
-        let resetButton = UIButton(frame: CGRect(x: buttonWidth + 2, y: 55, width: buttonWidth - 4, height: buttonWidth - 54))
+        resetButton = UIButton(/*frame: CGRect(x: buttonWidth + 2, y: 55, width: buttonWidth - 4, height: buttonWidth - 54)*/)
         resetButton.addTarget(self, action: #selector(ScoreView.resetCounters(sender:)), for: .touchUpInside)
         resetButton.setTitle("RESET", for: .normal)
-        resetButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        resetButton.titleLabel?.font = UIFont(name: "Arial Rounded MT Bold", size: 20)
         resetButton.setTitleColor(UIColor.black, for: .normal)
         resetButton.layer.borderWidth = 4
         resetButton.layer.borderColor = UIColor.black.cgColor
         resetButton.layer.cornerRadius = 25
         resetButton.isUserInteractionEnabled = true
-        self.addSubview(resetButton)
+        whiteCoverView.addSubview(resetButton)
+        
+        var resetButtonConstraints = [NSLayoutConstraint]()
+        resetButtonConstraints.append(NSLayoutConstraint(item: resetButton,
+                                                         attribute: .top,
+                                                         relatedBy: .equal,
+                                                         toItem: whiteCoverView,
+                                                         attribute: .top,
+                                                         multiplier: 1,
+                                                         constant: 5))
+        resetButtonConstraints.append(NSLayoutConstraint(item: resetButton,
+                                                         attribute: .centerX,
+                                                         relatedBy: .equal,
+                                                         toItem: whiteCoverView,
+                                                         attribute: .centerX,
+                                                         multiplier: 1,
+                                                         constant: 5))
+        resetButtonConstraints.append(NSLayoutConstraint(item: resetButton,
+                                                         attribute: .width,
+                                                         relatedBy: .equal,
+                                                         toItem: crossCounterPictureView,
+                                                         attribute: .width,
+                                                         multiplier: 1,
+                                                         constant: -5))
+        resetButtonConstraints.append(NSLayoutConstraint(item: resetButton,
+                                                         attribute: .bottom,
+                                                         relatedBy: .equal,
+                                                         toItem: whiteCoverView,
+                                                         attribute: .bottom,
+                                                         multiplier: 1,
+                                                         constant: -5))
+        resetButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate(resetButtonConstraints)
+        
+        setConstraints()
+        
     }
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    
+    override var backgroundColor: UIColor? {
+        didSet {
+            print("background color is being set")
+            if whiteCoverView.backgroundColor == UIColor.clear {
+                print("set to a clear color")
+                whiteCoverView.backgroundColor = UIColor.white
+            }
+        }
     }
+    
+    func setConstraints(){
+        var whiteCoverViewConstraints = [NSLayoutConstraint]()
+        whiteCoverViewConstraints.append(NSLayoutConstraint(item: whiteCoverView,
+                                                            attribute: .top,
+                                                            relatedBy: .equal,
+                                                            toItem: self,
+                                                            attribute: .topMargin,
+                                                            multiplier: 1,
+                                                            constant: 0))
+        whiteCoverViewConstraints.append(NSLayoutConstraint(item: whiteCoverView,
+                                                            attribute: .width,
+                                                            relatedBy: .equal,
+                                                            toItem: nil,
+                                                            attribute: .notAnAttribute,
+                                                            multiplier: 1,
+                                                            constant: width))
+        whiteCoverViewConstraints.append(NSLayoutConstraint(item: whiteCoverView,
+                                                            attribute: .height,
+                                                            relatedBy: .equal,
+                                                            toItem: nil,
+                                                            attribute: .notAnAttribute,
+                                                            multiplier: 1,
+                                                            constant: CGFloat(buttonWidth)))
+        whiteCoverView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate(whiteCoverViewConstraints)
+        
+        var crossCountLabelConstraints = [NSLayoutConstraint]()
+        crossCountLabelConstraints.append(NSLayoutConstraint(item: crossCountLabel,
+                                                             attribute: .top,
+                                                             relatedBy: .greaterThanOrEqual,
+                                                             toItem: whiteCoverView,
+                                                             attribute: .bottom,
+                                                             multiplier: 1,
+                                                             constant: 10))
+        crossCountLabelConstraints.append(NSLayoutConstraint(item: crossCountLabel,
+                                                             attribute: .leading,
+                                                             relatedBy: .equal,
+                                                             toItem: self,
+                                                             attribute: .leading,
+                                                             multiplier: 1,
+                                                             constant: 0))
+        crossCountLabelConstraints.append(NSLayoutConstraint(item: crossCountLabel,
+                                                             attribute: .width,
+                                                             relatedBy: .equal,
+                                                             toItem: crossCounterPictureView,
+                                                             attribute: .width,
+                                                             multiplier: 1,
+                                                             constant: 0))
+        
+        var winChainSizeLabelConstraints = [NSLayoutConstraint]()
+        winChainSizeLabelConstraints.append(NSLayoutConstraint(item: winChainSizeLabel,
+                                                               attribute: .top,
+                                                               relatedBy: .greaterThanOrEqual,
+                                                               toItem: whiteCoverView,
+                                                               attribute: .bottom,
+                                                               multiplier: 1,
+                                                               constant: 10))
+        winChainSizeLabelConstraints.append(NSLayoutConstraint(item: winChainSizeLabel,
+                                                               attribute: .leading,
+                                                               relatedBy: .equal,
+                                                               toItem: crossCountLabel,
+                                                               attribute: .trailing,
+                                                               multiplier: 1,
+                                                               constant: 5))
+        winChainSizeLabelConstraints.append(NSLayoutConstraint(item: winChainSizeLabel,
+                                                               attribute: .trailing,
+                                                               relatedBy: .equal,
+                                                               toItem: circleCountLabel,
+                                                               attribute: .leading,
+                                                               multiplier: 1,
+                                                               constant: 5))
+
+        var circleCountLabelConstraints = [NSLayoutConstraint]()
+        circleCountLabelConstraints.append(NSLayoutConstraint(item: circleCountLabel,
+                                                              attribute: .top,
+                                                              relatedBy: .greaterThanOrEqual,
+                                                              toItem: whiteCoverView,
+                                                              attribute: .bottom,
+                                                              multiplier: 1,
+                                                              constant: 10))
+        circleCountLabelConstraints.append(NSLayoutConstraint(item: circleCountLabel,
+                                                              attribute: .trailing,
+                                                              relatedBy: .equal,
+                                                              toItem: self,
+                                                              attribute: .trailing,
+                                                              multiplier: 1,
+                                                              constant: 0))
+        circleCountLabelConstraints.append(NSLayoutConstraint(item: circleCountLabel,
+                                                              attribute: .width,
+                                                              relatedBy: .equal,
+                                                              toItem: circleCounterPictureView,
+                                                              attribute: .width,
+                                                              multiplier: 1,
+                                                              constant: 0))
+        
+        winChainSizeLabel.translatesAutoresizingMaskIntoConstraints = false
+        circleCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        crossCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate(crossCountLabelConstraints + circleCountLabelConstraints + winChainSizeLabelConstraints)
+        
+    }
+    
     
     func update(winner: String) {
         if winner == "X" {
@@ -118,7 +282,7 @@ class ScoreView: UIView {
             
             crossCounterPictureView.onMove()
             circleCounterPictureView.isWaiting()
-
+            
         }
     }
     

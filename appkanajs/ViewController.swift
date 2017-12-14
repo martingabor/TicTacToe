@@ -58,7 +58,7 @@ import UIKit
                                                         toItem: view,
                                                         attribute: .bottom,
                                                         multiplier: 1,
-                                                        constant: 5))
+                                                        constant: -5))
         //        LEADING CONSTRAINT
         chooseDifferentSizeButtonConstraints.append(NSLayoutConstraint(item: chooseDifferentSizeButton,
                                                         attribute: .leading,
